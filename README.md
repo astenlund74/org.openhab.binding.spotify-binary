@@ -4,7 +4,7 @@ This binding implements a bridge to the Spotify Player Web API and makes it poss
 ## Configuring the binding
 The binding requires you to register an Application with Spotify Web API at https://developer.spotify.com - this will get you a set of Client ID and Client Secret parameters to be used by your binding configuration.
 
-###Create Spotify Application
+### Create Spotify Application
 Follow the instructions in the tutorial at https://developer.spotify.com/web-api/tutorial/. Skip into and follow instructions under:
 
  1. Setting Up Your Account
@@ -50,60 +50,62 @@ As long as Spotify Connect devices are available on the network of your server t
 The channels on the bridge are the ones used to both control the active device and get details of currently playing music.
 
 __Common Channels:__
-| Channel Type ID       | Item Type    | Description  |
-|-----------------------|------------------------|--------------|
-| deviceName 		| String 	| Name of the currently active Connect Device |
-| deviceVolume 		| Dimmer 	| Get or set the active Connect Device volume |
-| trackPlay 		| String 	| Set which music  to play on the active device. This channel accepts Spotify URIs and Hrefs. |
-| trackPlayer 		| Player 	| The Player Control of the active device. Play/Pause/Next/Previous commands. |
-| trackRepeat 		| String 	| The current device Repeat Mode setting |
-| trackShuffle 		| Switch 	| The current device  Shuffle setting |
-| trackName 		| String 	| The name of the currently played track |
-| trackDuration 	| String 	| The duration (m:ss) of the currently played track|
-| trackProgress 	| String 	| The Progress (m:ss) of the currently played track. This is updated as the refreshPeriod of the Bridge.|
-| albumName 		| String 	| Album Name of the currently played track|
-| artistName 		| String 	| Artist Name of the currently played track | 
+
+Channel Type ID | Item Type    | Description 
+----------------|--------------|-------------------------------------
+deviceName 		| String 	| Name of the currently active Connect Device 
+deviceVolume 		| Dimmer 	| Get or set the active Connect Device volume 
+trackPlay 		| String 	| Set which music  to play on the active device. This channel accepts Spotify URIs and Hrefs. 
+trackPlayer 		| Player 	| The Player Control of the active device. Play/Pause/Next/Previous commands. 
+trackRepeat 		| String 	| The current device Repeat Mode setting 
+trackShuffle 		| Switch 	| The current device  Shuffle setting 
+trackName 		| String 	| The name of the currently played track 
+trackDuration 	| String 	| The duration (m:ss) of the currently played track
+trackProgress 	| String 	| The Progress (m:ss) of the currently played track. This is updated as the refreshPeriod of the Bridge.
+albumName 		| String 	| Album Name of the currently played track
+artistName 		| String 	| Artist Name of the currently played track  
 
 __Advanced Channels:__
-| Channel Type ID       | Item Type    | Description  |
-|-----------------------|------------------------|--------------|
-| accessToken			| String	| The current accessToken used in communication with WebAPI. This can be used in client-side scripting towards the WebAPI if you would like to maintain your playlists etc. |
-| currentlyPlayedTrackId | String | Track Id of the currently played track. |
-| currentlyPlayedTrackHref | String | Track Href of the currently played track. |
-| currentlyPlayedTrackUri | String | Track Uri of the currently played track. |
-| currentlyPlayedTrackType | String | Type of the currently played track. |
-| currentlyPlayedTrackNumber | String | Number of the track on the album/record. |
-| currentlyPlayedTrackDiscNumber | String | Disc Number of the track on the album/record. |
-| currentlyPlayedTrackPopularity | Dimmer | Currently played track popularity |
-| currentlyPlayedAlbumId | String | Album Id of the currently played track. |
-| currentlyPlayedAlbumHref | String | Album Href of the currently played track. |
-| currentlyPlayedAlbumUri | String | Album Uri of the currently played track. |
-| currentlyPlayedAlbumType | String | Album Type of the currently played track. |
-| currentlyPlayedArtistId | String | Artist Id of the currently played track. |
-| currentlyPlayedArtistHref | String | Artist Href of the currently played track. |
-| currentlyPlayedArtistUri | String | Artist Uri of the currently played track. |
-| currentlyPlayedArtistType | String | Artist Type of the currently played track. |
+
+Channel Type ID | Item Type | Description 
+----------------|-----------|-----------------------------
+accessToken     | String	| The current accessToken used in communication with WebAPI. This can be used in client-side scripting towards the WebAPI if you would like to maintain your playlists etc. 
+currentlyPlayedTrackId | String | Track Id of the currently played track. 
+currentlyPlayedTrackHref | String | Track Href of the currently played track. 
+currentlyPlayedTrackUri | String | Track Uri of the currently played track. 
+currentlyPlayedTrackType | String | Type of the currently played track. 
+currentlyPlayedTrackNumber | String | Number of the track on the album/record. 
+currentlyPlayedTrackDiscNumber | String | Disc Number of the track on the album/record. 
+currentlyPlayedTrackPopularity | Dimmer | Currently played track popularity 
+currentlyPlayedAlbumId | String | Album Id of the currently played track. 
+currentlyPlayedAlbumHref | String | Album Href of the currently played track. 
+currentlyPlayedAlbumUri | String | Album Uri of the currently played track. 
+currentlyPlayedAlbumType | String | Album Type of the currently played track. 
+currentlyPlayedArtistId | String | Artist Id of the currently played track. 
+currentlyPlayedArtistHref | String | Artist Href of the currently played track. 
+currentlyPlayedArtistUri | String | Artist Uri of the currently played track. 
+currentlyPlayedArtistType | String | Artist Type of the currently played track. 
 
 ### Devices 
 There will be channels on the bridge and on the devices. The functionality of the bridge channels will be overlapping some of the ones of the devices. 
 
 __Common Channels:__
-| Channel Type ID       | Item Type    		| Description  |
-|-----------------------|-----------------------|--------------|
-| trackPlay 		| String 		| Track to play on the device. Assigning a track, playlist, artist etc will activate the device and make it the currently playing device. |
-| deviceName 		| String 		| Name of the device |
-| deviceVolume 		| Dimmer 		| Volume setting for the device |
-| devicePlayer 		| Player 		| Player Control of the device |
-| deviceShuffle 	| Switch 		| Turn on/off shuffle play |
+
+Channel Type ID | Item Type  	| Description  
+-----------------|-------------|-----------------------------------
+trackPlay 	| String 		| Track to play on the device. Assigning a track, playlist, artist etc will activate the device and make it the currently playing device. 
+deviceName 	| String 		| Name of the device 
+deviceVolume 	| Dimmer 		| Volume setting for the device 
+devicePlayer 	| Player 		| Player Control of the device 
+deviceShuffle 	| Switch 		| Turn on/off shuffle play 
 
 __Advanced Channels:__
-| Channel Type ID       | Item Type    		| Description  |
-|-----------------------|-----------------------|--------------|
-| deviceId | String | The Spotify Connect device Id. |
-| deviceType | String | The type of device e.g. Speaker, Smartphone |
-| deviceActive | Switch | Indicated if the device is active or not. Should be the same as Thing status ONLINE/OFFLINE |
-| deviceRestricted | Switch | Indicates if this device allows to be controlled by the API or not. If restricted it cannot be controlled |
 
+Channel Type ID  | Item Type    | Description 
+-----------------|--------------|----------------------------------
+deviceId | String | The Spotify Connect device Id. 
+deviceType | String | The type of device e.g. Speaker, Smartphone 
+deviceActive | Switch | Indicated if the device is active or not. Should be the same as Thing status ONLINE/OFFLINE 
 
 ## Full Example
 

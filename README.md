@@ -1,10 +1,13 @@
 # Binding for Spotify Connect Devices
 
 This binding implements a bridge to the Spotify Player Web API and makes it possible to discover Spotify Connect Devices available on your Spotify Premium account.
+
 ## Configuring the binding
+
 The binding requires you to register an Application with Spotify Web API at https://developer.spotify.com - this will get you a set of Client ID and Client Secret parameters to be used by your binding configuration.
 
-###Create Spotify Application
+### Create Spotify Application
+
 Follow the instructions in the tutorial at https://developer.spotify.com/web-api/tutorial/. Skip into and follow instructions under:
 
  1. Setting Up Your Account
@@ -41,10 +44,12 @@ If you get a browser message such as this when you try to authorize:
 Then you have to check your Client ID and Client Secret settings of the bridge and make sure you have the same values as given by the Spotify Application. This message means that Spotify cannot find a matching client configuration for the bridge you are trying to authorize.
 
 ## Supported Things
+
 All Spotify Connect capable devices should be discoverable through this binding. If you can control them from Spotify Player app on your PC/Mac/iPhone/Android/xxx you should be able to add it as a thing.
 Some devices can be restricted and not available for playing. The bridge will make these available in the discovery of devices, but they will never be ONLINE.
 
 ## Discovery
+
 As long as Spotify Connect devices are available in the context of the user account configured with the bridge/bridges they should show up whenever you initiate discovery of things. 
 
 If no devices are showing up, try to connect to the device(s) from your smartphone or computer to make sure the device(s) are in use by your user account. 
@@ -54,6 +59,7 @@ The discovery of devices in the Spotify Web API is based on what is known by Spo
 ## Channels
 
 ### Bridge / Player
+
 The channels on the bridge are the ones used to both control the active device and get details of currently playing music on the Spotify Account associated with the bridge.
 
 __Common Channels:__
@@ -94,6 +100,7 @@ __Advanced Channels:__
 | artistType | String | Read-only | Artist Type of the currently played track. |
 
 ### Devices 
+
 There are channels on the devices that seemingly overlap those of the bridge. The difference between these overlapping channels are that the device channels always acts in the context of the particular device.
 E.g. if you assign a playlist to the _trackPlay_ channel of the device, the playing of that playlist will be activated on that particular device. Assigning a playlist to the _trackPlay_ channel of the bridge will start playing the list on whatever device is active. 
 
@@ -167,6 +174,7 @@ spotify.sitemap
     }
 
 ## Binding model and Spotify Web API
+
 The model of the binding is such that the bridge act as a player in the context of a specific user. All devices currently associated with the user account are available to control. 
 
 You can add multiple bridges to allow playing in the context of multiple Spotify user accounts. Therefor a device can exist multiple times - one time for every bridge configured. This is seen in the Thing ID which includes the name of the bridge it is bound to. 

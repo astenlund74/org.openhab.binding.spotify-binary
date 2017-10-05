@@ -83,6 +83,8 @@ __Advanced Channels:__
 | Channel Type ID | Item Type | Read/Write | Description  |
 |-----------------|-----------|------------|--------------|
 | accessToken	     | String	| Read-only | The current accessToken used in communication with Web API. This can be used in client-side scripting towards the Web API if you would like to maintain your playlists etc. |
+| customRequest	  | String	| Read-write | Assign an WebAPI GET url and the JSON response will be available in the customReply channel |
+| customReply	     | String	   | Read-only | Holds the result from latest WebAPI GET request in customRequest channel |
 | trackId | String | Read-only | Track Id of the currently played track. |
 | trackHref | String | Read-only | Track Href of the currently played track. |
 | trackUri | String | Read-only | Track Uri of the currently played track. |
@@ -134,10 +136,16 @@ spotify.items:
 
     Switch device1Player  {channel="spotify:device:user1:3b4...ed4:devicePlayer"}
     Switch device2Player  {channel="spotify:device:user1:abc...123:devicePlayer"}
+    Switch TriggerAPICall 
+    String SpotifyPlayerBridge_CustomRequest {channel="spotify:device:user1:3b4...ed4:customRequst"}
+    String SpotifyPlayerBridge_CustomReply   {channel="spotify:device:user1:3b4...ed4:customReply"}
 
 spotify.sitemap
 
     sitemap spotify label="Spotify Sitemap" {
+        Frame label="Test custom WebAPI request" {
+        	  Switch item=TriggerAPICall
+        }
          
         Frame label="Spotify Player Info" {
             Text item=spotify_player_user1_trackRepeat label="Currently Player repeat mode: [%s]"
@@ -172,6 +180,26 @@ spotify.sitemap
         }    
     
     }
+    
+Spotify.rules
+
+	rule "Trigger call"
+	when
+	  Item TriggerAPICall changed
+	then
+	  sendCommand(SpotifyPlayerBridge_CustomRequest, "https://api.spotify.com/v1/me")
+	end
+	
+	
+	rule "Spotify Reply"
+	when
+	  Item SpotifyPlayerBridge_CustomReply received update
+	then
+	  logInfo("spotify", "SpotifyPlayerBridge_CustomReply: " + SpotifyPlayerBridge_CustomReply.state)
+	  // For you to do: Parse JSON response and make use of it
+	end
+    
+ 
 
 ## Binding model and Spotify Web API
 
